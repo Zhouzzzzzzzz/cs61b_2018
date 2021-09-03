@@ -7,15 +7,15 @@
 
 public class ArrayDeque<T> {
 
-    public int length = 8;//队列初始长度
+    private int length = 8;//队列初始长度
 
-    public int size = 0;
+    private int size = 0;
 
-    public int first = 0;//队列左端
+    private int first = 0;//队列左端
 
-    public int last;//队列右端
+    private int last;//队列右端
 
-    public Object []array;
+    private Object []array;
 
     public ArrayDeque(){
         array = new Object[this.length];

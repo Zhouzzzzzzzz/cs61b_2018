@@ -5,11 +5,11 @@
  **/
 public class LinkedListDeque <T>{
 
-    public class Node<T>{
-        public T item;
-        public Node<T> next;
-        public Node<T> pre;
-        public Node(T item){
+    private class Node<T>{
+        private T item;
+        private Node<T> next;
+        private Node<T> pre;
+        private Node(T item){
             this.item = item;
         }
     }
