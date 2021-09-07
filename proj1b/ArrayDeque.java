@@ -11,13 +11,13 @@ public class ArrayDeque<T> implements Deque<T> {
 
     private int size = 0;
 
-    private int first = 0;//队列左端
+    private final int first = 0;//队列左端
 
     private int last;//队列右端
 
-    private Object []array;
+    private Object[] array;
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         array = new Object[this.length];
     }
 
@@ -27,8 +27,8 @@ public class ArrayDeque<T> implements Deque<T> {
         if (isFull()) {
             resizeArray();
         }
-        for(int i = size; i > 0; i--){
-            array[i] = array[i-1];
+        for (int i = size; i > 0; i--) {
+            array[i] = array[i - 1];
         }
         size += 1;
         this.array[first] = item;
@@ -37,14 +37,14 @@ public class ArrayDeque<T> implements Deque<T> {
 
     /* 左端出列 **/
     @Override
-    public T removeFirst(){
-        if(isEmpty()){
+    public T removeFirst() {
+        if (isEmpty()) {
             return null;
         }
         T t = (T) array[0];
-        Object []temp = new Object[this.size - 1];
-        for(int i = 0; i < size-1; i++){
-            temp[i] = array[i+1];
+        Object[] temp = new Object[this.size - 1];
+        for (int i = 0; i < size - 1; i++) {
+            temp[i] = array[i + 1];
         }
         this.array = temp;
         size -= 1;
@@ -63,13 +63,13 @@ public class ArrayDeque<T> implements Deque<T> {
 
     /* 右端出列 **/
     @Override
-    public T removeLast(){
-        if(isEmpty()){
+    public T removeLast() {
+        if (isEmpty()) {
             return null;
         }
         T t = (T) array[size];
-        Object []temp = new Object[this.size - 1];
-        for(int i = 0; i < size-1; i++){
+        Object[] temp = new Object[this.size - 1];
+        for (int i = 0; i < size - 1; i++) {
             temp[i] = array[i];
         }
         this.array = temp;
@@ -78,20 +78,20 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /* 判断队列是否已满 **/
-    public boolean isFull(){
+    public boolean isFull() {
         return size == length;
     }
 
     /* 判断队列是否为空 **/
     @Override
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
     /* 取出队列中某数 **/
     @Override
-    public T get(int index){
-        if (size < index){
+    public T get(int index) {
+        if (size < index) {
             System.out.print("所取元素下标超出队列长度");
         }
         T item = (T) this.array[index];
@@ -99,27 +99,27 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /* 扩充数组 **/
-    public void resizeArray(){
+    public void resizeArray() {
         this.length *= 2;
-        Object []arrayList = new Object[this.length];
-        for(int i = 0; i < size; i++){
+        Object[] arrayList = new Object[this.length];
+        for (int i = 0; i < size; i++) {
             arrayList[i] = this.array[i];
         }
         this.array = arrayList;
     }
 
     @Override
-    public int Size(){
+    public int Size() {
         return this.size;
     }
 
     /* 打印队列 **/
     @Override
-    public void printDeque(){
-        if(isEmpty()){
+    public void printDeque() {
+        if (isEmpty()) {
             return;
         }
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             System.out.print(this.array[i] + " ");
         }
     }
