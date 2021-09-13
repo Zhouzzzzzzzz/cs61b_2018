@@ -12,7 +12,7 @@ public class TestArrayDequeGold {
         for (int i = 0; i < 100; i++) {
             int Element = StdRandom.uniform(10);
             int Cases = StdRandom.uniform(4);
-            if (array.isEmpty() || student.isEmpty()) {
+            if (array.isEmpty()) {
                 Cases /= 2;
             }
             switch (Cases) {
