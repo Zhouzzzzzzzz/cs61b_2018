@@ -1,56 +1,57 @@
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestArrayDequeGold {
     @Test
-    public void test() {
-        StudentArrayDeque<Integer> sad = new StudentArrayDeque<>();
-        ArrayDequeSolution<Integer> ads = new ArrayDequeSolution<>();
+    public void testArrayDequeGold() {
+        StudentArrayDeque<Integer> student = new StudentArrayDeque();
+        ArrayDequeSolution<Integer> array = new ArrayDequeSolution();
 
-        StringBuilder msg = new StringBuilder();
-
-        int s = 0;
-        for (int i = 0; i < 500; i++) {
-            if (i % 5 == 0) {
-                msg.append("size()\n");
-                assertEquals(msg.toString(), ads.size(), sad.size());
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        while (i <= 100) {
+            int Element = StdRandom.uniform(10);
+            int Cases = StdRandom.uniform(4);
+            if (student.isEmpty()) {
+                double random = StdRandom.uniform();
+                if (random < 0.5) {
+                    student.addFirst(Element);
+                    array.addFirst(Element);
+                    builder.append(String.format("addFirst(%d)\n", Element));
+                } else {
+                    student.addLast(Element);
+                    array.addLast(Element);
+                    builder.append(String.format("addLast(%d)\n", Element));
+                }
             }
-
-            double selector = StdRandom.uniform();
-            if (selector < 0.25) {
-                sad.addFirst(i);
-                ads.addFirst(i);
-                s++;
-                msg.append("addFirst(" + i + ")\n");
-                assertEquals(msg.toString(), ads.get(0), sad.get(0));
-            } else if (selector < 0.5) {
-                sad.addLast(i);
-                ads.addLast(i);
-                s++;
-                msg.append("addLast(" + i + ")\n");
-                assertEquals(msg.toString(), ads.get(s - 1), sad.get(s - 1));
-            } else if (selector < 0.75) {
-                if (ads.isEmpty()) {
-                    msg.append("isEmpty()\n");
-                    assertTrue(msg.toString(), sad.isEmpty());
-                    continue;
-                }
-                Integer x = ads.removeFirst();
-                Integer y = sad.removeFirst();
-                s--;
-                msg.append("removeFirst()\n");
-                assertEquals(msg.toString(), x, y);
-            } else {
-                if (ads.isEmpty()) {
-                    msg.append("isEmpty()\n");
-                    assertTrue(msg.toString(), sad.isEmpty());
-                    continue;
-                }
-                Integer x = ads.removeLast();
-                Integer y = sad.removeLast();
-                s--;
-                msg.append("removeLast()\n");
-                assertEquals(msg.toString(), x, y);
+            switch (Cases) {
+                case 0:
+                    student.addFirst(Element);
+                    array.addFirst(Element);
+                    builder.append(String.format("addFirst(%d)\n", Element));
+                    i++;
+                    break;
+                case 1:
+                    student.addLast(Element);
+                    array.addLast(Element);
+                    builder.append(String.format("addLast(%d)\n", Element));
+                    i++;
+                    break;
+                case 2:
+                    builder.append("removeFirst()\n");
+                    Integer expect1 = array.removeFirst();
+                    Integer actual1 = student.removeFirst();
+                    assertEquals(builder.toString(), expect1, actual1);
+                    i++;
+                    break;
+                case 3:
+                    builder.append("removeLast()\n");
+                    Integer expect2 = array.removeLast();
+                    Integer actual2 = student.removeLast();
+                    assertEquals(builder.toString(), expect2, actual2);
+                    i++;
+                    break;
             }
         }
     }
