@@ -1,43 +1,57 @@
+import static org.junit.Assert.*;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class TestArrayDequeGold {
     @Test
-    public void testArrayDequeGold() {
-        StudentArrayDeque student = new StudentArrayDeque();
-        ArrayDequeSolution array = new ArrayDequeSolution();
+    public void test() {
+        StudentArrayDeque<Integer> sad = new StudentArrayDeque<>();
+        ArrayDequeSolution<Integer> ads = new ArrayDequeSolution<>();
 
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < 100; i++) {
-            int Element = StdRandom.uniform(10);
-            int Cases = StdRandom.uniform(4);
-            if (array.isEmpty()) {
-                Cases /= 2;
+        StringBuilder msg = new StringBuilder();
+
+        int s = 0;
+        for (int i = 0; i < 500; i++) {
+            if (i % 5 == 0) {
+                msg.append("size()\n");
+                assertEquals(msg.toString(), ads.size(), sad.size());
             }
-            switch (Cases) {
-                case 0:
-                    student.addFirst(Element);
-                    array.addFirst(Element);
-                    builder.append(String.format("addfirst(%d)\n", Element));
-                    break;
-                case 1:
-                    student.addLast(Element);
-                    array.addLast(Element);
-                    builder.append(String.format("addlast(%d)\n", Element));
-                    break;
-                case 2:
-                    builder.append("removeFirst()\n");
-                    assertEquals(builder.toString(), student.removeFirst(), array.removeFirst());
-                    break;
-                case 3:
-                    student.removeLast();
-                    array.removeLast();
-                    builder.append("removeLast()\n");
-                    assertEquals(builder.toString(), student.removeLast(), array.removeLast());
-                    break;
+
+            double selector = StdRandom.uniform();
+            if (selector < 0.25) {
+                sad.addFirst(i);
+                ads.addFirst(i);
+                s++;
+                msg.append("addFirst(" + i + ")\n");
+                assertEquals(msg.toString(), ads.get(0), sad.get(0));
+            } else if (selector < 0.5) {
+                sad.addLast(i);
+                ads.addLast(i);
+                s++;
+                msg.append("addLast(" + i + ")\n");
+                assertEquals(msg.toString(), ads.get(s - 1), sad.get(s - 1));
+            } else if (selector < 0.75) {
+                if (ads.isEmpty()) {
+                    msg.append("isEmpty()\n");
+                    assertTrue(msg.toString(), sad.isEmpty());
+                    continue;
+                }
+                Integer x = ads.removeFirst();
+                Integer y = sad.removeFirst();
+                s--;
+                msg.append("removeFirst()\n");
+                assertEquals(msg.toString(), x, y);
+            } else {
+                if (ads.isEmpty()) {
+                    msg.append("isEmpty()\n");
+                    assertTrue(msg.toString(), sad.isEmpty());
+                    continue;
+                }
+                Integer x = ads.removeLast();
+                Integer y = sad.removeLast();
+                s--;
+                msg.append("removeLast()\n");
+                assertEquals(msg.toString(), x, y);
             }
         }
-
     }
 }
