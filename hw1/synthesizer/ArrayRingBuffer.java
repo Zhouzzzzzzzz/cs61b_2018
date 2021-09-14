@@ -1,5 +1,4 @@
 package synthesizer;// TODO: Make sure to make this class a part of the synthesizer package
-import java.util.Iterator;
 
 //TODO: Make sure to make this class and all of its methods public
 //TODO: Make sure to make this class extend AbstractBoundedQueue<t>
@@ -28,12 +27,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * covered Monday.
      */
     public void enqueue(T x) {
-        if(isFull()){
+        if (isFull()) {
             throw new RuntimeException("Ring buffer overflow");
         }
         rb[last] = x;
         last++;
-        if(last == capacity){
+        if (last == capacity) {
             last = 0;
         }
         fillCount++;
@@ -46,12 +45,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     public T dequeue() {
         // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new RuntimeException("Ring buffer underflow");
         }
         T item = rb[first];
         first++;
-        if(first == capacity){
+        if (first == capacity) {
             first = 0;
         }
         fillCount--;
@@ -63,7 +62,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new RuntimeException("Ring buffer underflow");
         }
         return rb[first];
@@ -80,12 +79,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     }
 
     @Override
-    public int capacity(){
+    public int capacity() {
         return capacity;
     }
 
     @Override
-    public int fillCount(){
+    public int fillCount() {
         return fillCount;
     }
 
